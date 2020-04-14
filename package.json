@@ -9,6 +9,7 @@
   "author": "Stefan Hoth <stefan.hoth@reserchgate.net>",
   "license": "MIT",
   "dependencies": {
+    "@slack/bolt": "^2.0.1",
     "dotenv": "^8.2.0"
   }
 }
