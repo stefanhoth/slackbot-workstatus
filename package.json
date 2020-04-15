@@ -2,12 +2,17 @@
   "name": "slackbot-workstatus",
   "version": "0.0.1",
   "description": "Slackbot to provide information about colleague's work availability",
-  "main": "handler.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "private": true,
+  "main": "src/app.js",
   "author": "Stefan Hoth <stefan.hoth@reserchgate.net>",
   "license": "MIT",
+  "engines": {
+    "node": "^10.x"
+  },
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
     "@slack/bolt": "^2.0.1",
     "dotenv": "^8.2.0"
