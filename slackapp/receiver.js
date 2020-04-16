@@ -1,6 +1,6 @@
 // this will become an easier to consume function/module
 const {
-  verifySignatureAndParseBody: createVerifySignatureAndParseBody
+  verifySignatureAndParseRawBody: createVerifySignatureAndParseBody
 } = require("@slack/bolt/dist/ExpressReceiver");
 
 exports.createReceiver = ({ logger, signingSecret }) => {
@@ -11,7 +11,7 @@ exports.createReceiver = ({ logger, signingSecret }) => {
   const dispatchError = err => errorCallbacks.forEach(cb => cb(err));
 
   // We'll create this function to use when we handle the request
-  const verifySignatureAndParseBody = createVerifySignatureAndParseBody(
+  const verifySignatureAndParseRawBody = createVerifySignatureAndParseBody(
     logger,
     signingSecret
   );
@@ -30,7 +30,7 @@ exports.createReceiver = ({ logger, signingSecret }) => {
       return;
     }
 
-    await verifySignatureAndParseBody(req, null, error => {
+    await verifySignatureAndParseRawBody(req, null, error => {
       if (error) {
         dispatchError(error);
       }
@@ -81,6 +81,9 @@ exports.createReceiver = ({ logger, signingSecret }) => {
   return {
     // Process the incoming http request
     handleRequest,
+
+    // There's nothing to init here, just complying with the interface
+    init: () => { },
 
     // There's nothing to really start here like a normal http server
     start: () => { },
