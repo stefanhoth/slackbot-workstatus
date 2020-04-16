@@ -1,6 +1,6 @@
 // this will become an easier to consume function/module
 const {
-  verifySignatureAndParseBody: verifySignatureAndParseRawBody
+  verifySignatureAndParseBody: createVerifySignatureAndParseBody
 } = require("@slack/bolt/dist/ExpressReceiver");
 
 exports.createReceiver = ({ logger, signingSecret }) => {
@@ -11,7 +11,7 @@ exports.createReceiver = ({ logger, signingSecret }) => {
   const dispatchError = err => errorCallbacks.forEach(cb => cb(err));
 
   // We'll create this function to use when we handle the request
-  const verifySignatureAndParseBody = verifySignatureAndParseRawBody(
+  const verifySignatureAndParseBody = createVerifySignatureAndParseBody(
     logger,
     signingSecret
   );
