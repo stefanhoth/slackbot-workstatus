@@ -10,10 +10,14 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install production dependencies.
+ENV NPM_CONFIG_LOGLEVEL info
 RUN npm install --only=production
 
 # Copy local code to the container image.
 COPY . ./
+
+# replace this with your application's default port
+EXPOSE 8888
 
 # Run the web service on container startup.
 CMD [ "npm", "start" ]
