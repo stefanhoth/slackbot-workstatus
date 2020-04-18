@@ -1,0 +1,24 @@
+# This file configures the hello-world app which serves public web traffic.
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+    name: slackbot-workstatus
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: slackbot-workstatus
+    template:
+        metadata:
+            labels:
+                app: slackbot-workstatus
+        spec:
+            containers:
+                - name: slackbot-workstatus
+                  image: gcr.io/playground-cee05/slackbot-workstatus:latest
+                  # This app listens on port 8888 for web traffic by default.
+                  ports:
+                      - containerPort: 8888
+                  env:
+                      - name: PORT
+                        value: '8888'
