@@ -1,0 +1,38 @@
+{
+    'steps':
+        [
+            {
+                'name': 'gcr.io/cloud-builders/docker',
+                'args':
+                    [
+                        'build',
+                        '-t',
+                        'gcr.io/playground-cee05/slackbot-workstatus',
+                        '.',
+                    ],
+                'timeout': '500s',
+            },
+            {
+                'name': 'gcr.io/cloud-builders/docker',
+                'args': ['push', 'gcr.io/playground-cee05/slackbot-workstatus'],
+            },
+            {
+                'name': 'gcr.io/cloud-builders/kubectl',
+                'args':
+                    [
+                        'set',
+                        'image',
+                        'deployment/slackbot-workstatus',
+                        'my-container=gcr.io/playground-cee05/slackbot-workstatus',
+                    ],
+                'env':
+                    [
+                        'CLOUDSDK_COMPUTE_ZONE=europe-west3-a',
+                        'CLOUDSDK_CONTAINER_CLUSTER=clusterplay',
+                    ],
+            },
+        ],
+    'timeout': '660s',
+    'tags': ['slackbot', 'slackbot-workstatus', 'rg'],
+    'images': ['gcr.io/playground-cee05/slackbot-workstatus'],
+}
